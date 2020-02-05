@@ -1,8 +1,8 @@
-const { login, getUsers }  = require('../services');
+const { wfLogin, getUsers }  = require('../services');
 
 const dataUpdate = async (req, res, next) => {
     try {
-        await login();
+        await wfLogin();
         const users = await getUsers();
         res.send(users);
         next();

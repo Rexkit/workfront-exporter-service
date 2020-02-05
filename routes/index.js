@@ -1,10 +1,12 @@
 let { Router } = require('express');
 
-const dataRouter = require('./data');
-const usersRouter = require('./users');
+module.exports = passport => {
+    const dataRouter = require('./data')(passport);
+    const usersRouter = require('./users');
+    const systemAuthRouter = require('./systemAuth')(passport);
 
-let apiRouter = Router()
-    .use('/dataUpdate', dataRouter)
-    .use('/users', usersRouter);
-
-module.exports = apiRouter;
+    return Router()
+        .use('/dataUpdate', dataRouter)
+        .use('/users', usersRouter)
+        .use('/auth', systemAuthRouter);
+};

@@ -1,5 +1,7 @@
 const dataController = require('./dataController');
+const sysAuthController = require('./sysAuthController');
 
 module.exports = {
-    ...dataController
+    ...dataController,
+    ...sysAuthController
 };

@@ -1,7 +1,7 @@
 const instance = require('../config/workfront');
 
 const wfLogin = async () => {
-    const apiKey = instance.getApiKey(process.env.WF_USERNAME, process.env.WF_PASS);
+    const apiKey = await instance.getApiKey(process.env.WF_USERNAME, process.env.WF_PASS);
     instance.setApiKey(apiKey);
 };
 

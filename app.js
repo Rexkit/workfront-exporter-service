@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -12,15 +13,17 @@ const app = express();
 
 const apiRouter = require('./routes')(passport);
 
-app.set('trust proxy', 1);
+app.use(cors({
+    credentials: true
+}));
 
 app.use(session({
     store: new SequelizeStore({
         db: db.sequelize
     }),
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
 }));
 
 app.use(passport.initialize());

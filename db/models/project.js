@@ -14,19 +14,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     actualStartDate: {
-      allowNull: false,
       type: DataTypes.DATE
     },
     description: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(4000)
     },
     percentComplete: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.FLOAT
     },
     ownerId: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    lastUpdateDate: {
+      type: DataTypes.DATE
     }
   }, {});
   Project.associate = function(models) {

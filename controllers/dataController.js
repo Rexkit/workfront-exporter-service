@@ -1,12 +1,15 @@
-const { wfLogin, getWfUsers, setWfUsers, getWfUsersDB }  = require('../services');
+const { wfLogin, getWfUsers, setWfUsers, getWfProjects, setWfProjects }  = require('../services');
 
 const dataUpdate = async (req, res, next) => {
     try {
         await wfLogin();
-        const users = await getWfUsers();
+        let [users, projects] = await Promise.all([
+            getWfUsers(),
+            getWfProjects()
+        ]);
         await setWfUsers(users);
-        const fetchedUsers = await getWfUsersDB();
-        res.send(fetchedUsers);
+        await setWfProjects(projects);
+        res.send(projects);
         next();
     } catch (e) {
         console.log(e.message);

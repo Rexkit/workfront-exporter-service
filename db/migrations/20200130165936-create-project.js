@@ -15,15 +15,14 @@ module.exports = {
         type: Sequelize.DATE
       },
       actualStartDate: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(4000)
       },
       percentComplete: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       ownerId: {
         allowNull: false,
@@ -33,6 +32,9 @@ module.exports = {
           key: 'id',
           as: 'ownerId'
         }
+      },
+      lastUpdateDate: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

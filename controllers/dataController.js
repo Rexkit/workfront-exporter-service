@@ -9,10 +9,9 @@ const dataUpdate = async (req, res, next) => {
         ]);
         await setWfUsers(users);
         await setWfProjects(projects);
-        res.send(projects);
+        res.json(projects);
         next();
     } catch (e) {
-        console.log(e.message);
         res.sendStatus(500) && next(e)
     }
 };

@@ -19,7 +19,7 @@ const getWfUsers = async () => {
             }
         });
     } catch (e) {
-        console.log(e);
+        throw new Error(e.message);
     }
 };
 
@@ -29,7 +29,7 @@ const getWfUsersDB = async (options = {
     try {
         return await User.findAll(options);
     } catch (e) {
-        console.log(e);
+        throw new Error(e.message);
     }
 };
 

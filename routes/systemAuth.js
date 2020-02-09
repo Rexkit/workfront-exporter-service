@@ -7,12 +7,12 @@ module.exports = passport => {
     router.post('/signup', (req, res, next) => {
         passport.authenticate('local-signup', function (err, user, info) {
             if (err) {
-                return res.status(401).json(err);
+                return res.status(401).send(err.message);
             }
             if (user) {
                 return res.status(200).json(user);
             } else {
-                res.status(401).json(info);
+                res.status(401).send(info.message);
             }
         })(req, res, next)
     });
@@ -20,10 +20,10 @@ module.exports = passport => {
     router.post('/signin', (req, res, next) => {
         passport.authenticate('local-signin', function (err, user, info) {
             if (err) {
-                return res.status(401).json(err);
+                return res.status(401).send(err.message);
             }
             if (!user) {
-                return res.status(401);
+                return res.status(401).send(info.message);
             }
             req.logIn(user, function(err) {
                 if (err) { return next(err); }

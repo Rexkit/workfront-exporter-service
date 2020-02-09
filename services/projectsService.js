@@ -28,7 +28,7 @@ const getWfProjects = async () => {
             }
         });
     } catch (e) {
-        console.log(e);
+        throw new Error(e.message);
     }
 };
 
@@ -40,7 +40,7 @@ const setWfProjects = async projectsArr => {
           }
       }
   } catch (e) {
-      console.log(e);
+      throw new Error(e.message);
   }
 };
 

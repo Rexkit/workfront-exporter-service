@@ -25,7 +25,6 @@ module.exports = {
         type: Sequelize.FLOAT
       },
       ownerId: {
-        allowNull: false,
         type: Sequelize.STRING,
         references: {
           model: 'Users',

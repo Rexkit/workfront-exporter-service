@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT
     },
     ownerId: {
-      allowNull: false,
       type: DataTypes.STRING
     },
     lastUpdateDate: {

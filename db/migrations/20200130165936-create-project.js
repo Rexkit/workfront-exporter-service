@@ -32,6 +32,9 @@ module.exports = {
           as: 'ownerId'
         }
       },
+      updates: {
+        type: Sequelize.JSON
+      },
       lastUpdateDate: {
         type: Sequelize.DATE
       },

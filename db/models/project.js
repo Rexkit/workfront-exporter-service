@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.STRING
     },
+    updates: {
+      type: DataTypes.JSON
+    },
     lastUpdateDate: {
       type: DataTypes.DATE
     }

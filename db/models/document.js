@@ -10,15 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    ownerId: {
-      allowNull: false,
+    ownerID: {
       type: DataTypes.STRING
     },
     downloadURL: {
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-    projectID: {
       allowNull: false,
       type: DataTypes.STRING
     },
@@ -29,9 +24,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Document.associate = function(models) {
     // associations can be defined here
-    Document.belongsTo(models.Project, {
-      foreignKey: 'projectID'
-    });
     Document.belongsTo(models.User, {
       foreignKey: 'ownerId'
     });

@@ -12,7 +12,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       ownerID: {
-        allowNull: false,
         type: Sequelize.STRING,
         references: {
           model: 'Users',
@@ -23,15 +22,6 @@ module.exports = {
       downloadURL: {
         allowNull: false,
         type: Sequelize.STRING
-      },
-      projectID: {
-        allowNull: false,
-        type: Sequelize.STRING,
-        references: {
-          model: 'Projects',
-          key: 'id',
-          as: 'projectID'
-        }
       },
       lastModDate: {
         allowNull: false,

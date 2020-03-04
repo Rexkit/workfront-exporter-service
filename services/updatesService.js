@@ -20,7 +20,7 @@ const getWfUpdates = async (projects) => {
             "note",
             {
                 $$FIRST: i,
-                $$LIMIT: i + OBJ_LIMIT,
+                $$LIMIT: OBJ_LIMIT,
                 topObjID: projectsIds,
                 isReply: false
             },

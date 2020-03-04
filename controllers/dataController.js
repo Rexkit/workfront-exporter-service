@@ -1,15 +1,17 @@
-const { wfLogin, getWfUsers, setWfUsers, getWfProjects, setWfProjects, getWfUpdates, setWfUpdates }  = require('../services');
+const { wfLogin, getWfUsers, setWfUsers, getWfProjects, setWfProjects, getWfUpdates, setWfUpdates, getWfDocuments, setWfDocuments }  = require('../services');
 
 const dataUpdate = async (req, res, next) => {
     try {
         await wfLogin();
-        let [users, projects] = await Promise.all([
+        let [users, projects, documents] = await Promise.all([
             getWfUsers(),
-            getWfProjects()
+            getWfProjects(),
+            getWfDocuments()
         ]);
         let updates = await getWfUpdates(projects);
         await setWfUsers(users);
         await setWfProjects(projects);
+        await setWfDocuments(documents);
         await setWfUpdates(updates);
         res.json(updates);
         next();

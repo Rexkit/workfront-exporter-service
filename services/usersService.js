@@ -5,8 +5,8 @@ const User = require('../db/models').User;
 const getWfUsers = async () => {
     const allowedProps = ['ID', 'name', 'title', 'emailAddr'];
     let query = {};
-    query["isActive"] = true;
-    query["isActive" + ApiConstants.MOD] = ApiConstants.Operators.EQUAL;
+    // query["isActive"] = true;
+    // query["isActive" + ApiConstants.MOD] = ApiConstants.Operators.EQUAL;
     try {
         const rawUsers = await instance.search("user", query, allowedProps);
 

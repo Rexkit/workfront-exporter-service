@@ -2,20 +2,33 @@ const instance = require('../config/workfront');
 const Project = require('../db/models').Project;
 
 const replaceDate = require('../utils/replaceDate');
+const objectCount = require('../utils/objectsCount');
 
 const getWfProjects = async () => {
     try {
-        const projectList = await instance.search("project", {}, [
-            "ID:*",
-            "actualCompletionDate:*",
-            "actualStartDate:*",
-            "description:*",
-            "lastUpdateDate:*",
-            "percentComplete:*",
-            "ownerID:*"
-        ]);
+        const OBJ_LIMIT = 2000;
+        const projects = [];
+        const projectsCount = await objectCount("project");
 
-        return projectList.map(project => {
+        for (let i = 0; i < projectsCount; i+=OBJ_LIMIT) {
+            const projectsCut = await instance.search(
+                "project",
+                {
+                    $$FIRST: i,
+                    $$LIMIT: OBJ_LIMIT
+                },
+                ["ID:*",
+                    "actualCompletionDate:*",
+                    "actualStartDate:*",
+                    "description:*",
+                    "lastUpdateDate:*",
+                    "percentComplete:*",
+                    "ownerID:*"]
+            );
+            projects.push(...projectsCut);
+        }
+
+        return projects.map(project => {
             return {
                 id: project.ID,
                 name: project.name,

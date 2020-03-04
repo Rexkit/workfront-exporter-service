@@ -3,12 +3,6 @@ const Project = require('../db/models').Project;
 
 const replaceDate = require('../utils/replaceDate');
 
-const filterUpdates = updates => {
-  const filteredUpdates = updates.filter(update => update.updateObjCode !== "JRNLE");
-
-  return filteredUpdates;
-};
-
 const getWfProjects = async () => {
     try {
         const projectList = await instance.search("project", {}, [
@@ -18,11 +12,7 @@ const getWfProjects = async () => {
             "description:*",
             "lastUpdateDate:*",
             "percentComplete:*",
-            "ownerID:*",
-            "updates:enteredByName",
-            "updates:entryDate",
-            "updates:message",
-            "updates:nestedUpdates"
+            "ownerID:*"
         ]);
 
         return projectList.map(project => {
@@ -34,7 +24,6 @@ const getWfProjects = async () => {
                 description: project.description,
                 percentComplete: project.percentComplete,
                 ownerId: project.ownerID,
-                updates: filterUpdates(project.updates),
                 lastUpdateDate: replaceDate(project.lastUpdateDate)
             }
         });

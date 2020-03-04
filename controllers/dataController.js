@@ -1,4 +1,4 @@
-const { wfLogin, getWfUsers, setWfUsers, getWfProjects, setWfProjects }  = require('../services');
+const { wfLogin, getWfUsers, setWfUsers, getWfProjects, setWfProjects, getWfUpdates, setWfUpdates }  = require('../services');
 
 const dataUpdate = async (req, res, next) => {
     try {
@@ -7,9 +7,11 @@ const dataUpdate = async (req, res, next) => {
             getWfUsers(),
             getWfProjects()
         ]);
+        let updates = await getWfUpdates(projects);
         await setWfUsers(users);
         await setWfProjects(projects);
-        res.json(projects);
+        await setWfUpdates(updates);
+        res.json(updates);
         next();
     } catch (e) {
         res.sendStatus(500) && next(e)

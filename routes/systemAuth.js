@@ -5,6 +5,7 @@ const { logout } = require('../controllers');
 
 module.exports = passport => {
     router.post('/signup', (req, res, next) => {
+        console.log(req.body);
         passport.authenticate('local-signup', function (err, user, info) {
             if (err) {
                 return res.status(401).send(err.message);

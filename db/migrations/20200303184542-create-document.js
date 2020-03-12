@@ -19,6 +19,14 @@ module.exports = {
           as: 'ownerID'
         }
       },
+      projectID: {
+        type: Sequelize.STRING,
+        references: {
+          model: 'Projects',
+          key: 'id',
+          as: 'projectID'
+        }
+      },
       downloadURL: {
         allowNull: false,
         type: Sequelize.STRING

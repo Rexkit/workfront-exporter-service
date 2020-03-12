@@ -2,15 +2,29 @@ const instance = require('../config/workfront');
 const ApiConstants = require("workfront-api-constants");
 const User = require('../db/models').User;
 
+const objectCount = require('../utils/objectsCount');
+
 const getWfUsers = async () => {
+    const OBJ_LIMIT = 2000;
+    const users = [];
+    const usersCount = await objectCount("user");
     const allowedProps = ['ID', 'name', 'title', 'emailAddr'];
-    let query = {};
     // query["isActive"] = true;
     // query["isActive" + ApiConstants.MOD] = ApiConstants.Operators.EQUAL;
     try {
-        const rawUsers = await instance.search("user", query, allowedProps);
+        for (let i = 0; i < usersCount; i+=OBJ_LIMIT) {
+            const usersCut = await instance.search(
+                "user",
+                {
+                    $$FIRST: i,
+                    $$LIMIT: OBJ_LIMIT
+                },
+                allowedProps
+            );
+            users.push(...usersCut);
+        }
 
-        return rawUsers.map(user => {
+        return users.map(user => {
             return {
                 id: user.ID,
                 name: user.name,
@@ -23,7 +37,7 @@ const getWfUsers = async () => {
     }
 };
 
-const getWfUsersDB = async (options = {
+const getDBUsers = async (options = {
     attributes: ['id', 'name', 'title', 'email']
 }) => {
     try {
@@ -44,5 +58,5 @@ const setWfUsers = async usersArr => {
 module.exports = {
     getWfUsers,
     setWfUsers,
-    getWfUsersDB
+    getDBUsers
 };

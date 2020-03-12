@@ -1,8 +1,8 @@
-const { getWfUsersDB } = require('../services');
+const { getDBUsers } = require('../services');
 
 const getUsers = async (req, res, next) => {
     try {
-        const users = await getWfUsersDB();
+        const users = await getDBUsers();
         res.json(users);
         next();
     } catch (e) {

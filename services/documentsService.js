@@ -4,7 +4,11 @@ const Document = require('../db/models').Document;
 const replaceDate = require('../utils/replaceDate');
 const objectCount = require('../utils/objectsCount');
 
-const getWfDocuments = async () => {
+const getWfDocuments = async (projects) => {
+    const projectsIds = projects.map(project => {
+        return project.id
+    });
+
     const OBJ_LIMIT = 2000;
     const documents = [];
     const documentsCount = await objectCount("docu");
@@ -14,9 +18,10 @@ const getWfDocuments = async () => {
             "docu",
             {
                 $$FIRST: i,
-                $$LIMIT: OBJ_LIMIT
+                $$LIMIT: OBJ_LIMIT,
+                projectID: projectsIds
             },
-            ["name, ownerID, downloadURL, lastModDate"]
+            ["name, ownerID, downloadURL, lastModDate, projectID"]
         );
         documents.push(...documentsCut);
     }
@@ -27,6 +32,7 @@ const getWfDocuments = async () => {
                 id: document.ID,
                 name: document.name,
                 ownerID: document.ownerID,
+                projectID: document.projectID,
                 downloadURL: document.downloadURL,
                 lastModDate: replaceDate(document.lastModDate)
             });

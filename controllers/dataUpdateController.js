@@ -3,12 +3,14 @@ const { wfLogin, getWfUsers, setWfUsers, getWfProjects, setWfProjects, getWfUpda
 const dataUpdate = async (req, res, next) => {
     try {
         await wfLogin();
-        let [users, projects, documents] = await Promise.all([
+        let [users, projects] = await Promise.all([
             getWfUsers(),
-            getWfProjects(),
-            getWfDocuments()
+            getWfProjects()
         ]);
-        let updates = await getWfUpdates(projects);
+        let [updates, documents] = await Promise.all([
+            getWfUpdates(projects),
+            getWfDocuments(projects)
+        ]);
         await setWfUsers(users);
         await setWfProjects(projects);
         await setWfDocuments(documents);

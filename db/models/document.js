@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     ownerID: {
       type: DataTypes.STRING
     },
+    projectID: {
+      type: DataTypes.STRING
+    },
     downloadURL: {
       allowNull: false,
       type: DataTypes.STRING
@@ -26,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Document.belongsTo(models.User, {
       foreignKey: 'ownerId'
+    });
+    Document.belongsTo(models.Project, {
+      foreignKey: 'projectId'
     });
   };
   return Document;

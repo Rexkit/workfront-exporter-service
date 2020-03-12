@@ -58,7 +58,26 @@ const setWfUpdates = async updatesArr => {
     }
 };
 
+const getDBUpdates = async (options = {
+    attributes: [
+        'id',
+        'topObjID',
+        'noteText',
+        'ownerId',
+        'documentID',
+        'entryDate',
+        'replies'
+    ]
+}) => {
+    try {
+        return await Update.findAll(options);
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};
+
 module.exports = {
     getWfUpdates,
-    setWfUpdates
+    setWfUpdates,
+    getDBUpdates
 };

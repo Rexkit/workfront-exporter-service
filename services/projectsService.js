@@ -57,7 +57,27 @@ const setWfProjects = async projectsArr => {
   }
 };
 
+const getDBProjects = async (options = {
+    attributes: [
+        'id',
+        'name',
+        'actualCompletionDate',
+        'actualStartDate',
+        'description',
+        'percentComplete',
+        'ownerId',
+        'lastUpdateDate'
+    ]
+}) => {
+    try {
+        return await Project.findAll(options);
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};
+
 module.exports = {
     getWfProjects,
-    setWfProjects
+    setWfProjects,
+    getDBProjects
 };

@@ -76,8 +76,21 @@ const getDBUpdates = async (options = {
     }
 };
 
+const getDBUpdatesByProjectId = async id => {
+    try {
+        return await Update.findAll({
+            where: {
+                topObjID: id
+            }
+        });
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};
+
 module.exports = {
     getWfUpdates,
     setWfUpdates,
-    getDBUpdates
+    getDBUpdates,
+    getDBUpdatesByProjectId
 };

@@ -6,11 +6,13 @@ module.exports = passport => {
     const systemAuthRouter = require('./systemAuth')(passport);
     const projectsRouter = require('./projects');
     const updatesRouter = require('./updates');
+    const documentsRouter = require('./documents');
 
     return Router()
         .use('/dataUpdate', dataRouter)
         .use('/users', usersRouter)
         .use('/auth', systemAuthRouter)
         .use('/projects', projectsRouter)
-        .use('/updates', updatesRouter);
+        .use('/updates', updatesRouter)
+        .use('/documents', documentsRouter);
 };

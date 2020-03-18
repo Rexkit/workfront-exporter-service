@@ -21,7 +21,7 @@ const getWfDocuments = async (projects) => {
                 $$LIMIT: OBJ_LIMIT,
                 projectID: projectsIds
             },
-            ["name, ownerID, downloadURL, lastModDate, projectID"]
+            ['name, ownerID, downloadURL, lastModDate, projectID']
         );
         documents.push(...documentsCut);
     }
@@ -54,7 +54,34 @@ const setWfDocuments = async documentsArr => {
     }
 };
 
+const getDBDocuments = async (options = {
+    attributes: [
+        'id',
+        'name',
+        'ownerID',
+        'downloadURL',
+        'lastModDate',
+        'projectID'
+    ]
+}) => {
+    try {
+        return await Document.findAll(options);
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};
+
+const getDBDocumentById = async id => {
+    try {
+        return await Document.findByPk(id);
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};
+
 module.exports = {
     getWfDocuments,
-    setWfDocuments
+    setWfDocuments,
+    getDBDocuments,
+    getDBDocumentById
 };

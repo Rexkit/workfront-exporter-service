@@ -1,4 +1,4 @@
-const { getDBProjects } = require('../services');
+const { getDBProjects, getDBProjectById } = require('../services');
 
 const getAllProjects = async (req, res, next) => {
     try {
@@ -10,6 +10,18 @@ const getAllProjects = async (req, res, next) => {
     }
 };
 
+const getProjectById = async (req, res, next) => {
+    const projectId = req.params.id;
+    try {
+        const project = await getDBProjectById(projectId);
+        res.json(project);
+        next();
+    } catch (e) {
+        res.sendStatus(500) && next(e)
+    }
+};
+
 module.exports = {
-    getAllProjects
+    getAllProjects,
+    getProjectById
 };

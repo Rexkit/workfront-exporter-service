@@ -70,7 +70,25 @@ const getDBProjects = async (options = {
     ]
 }) => {
     try {
-        return await Project.findAll(options);
+        return await Project.findAll(options = {
+            attributes: [
+                'id',
+                'name',
+                'actualCompletionDate',
+                'actualStartDate',
+                'description',
+                'percentComplete',
+                'ownerId',
+                'lastUpdateDate'
+            ]});
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};
+
+const getDBProjectById = async id => {
+    try {
+        return await Project.findByPk(id);
     } catch (e) {
         throw new Error(e.message);
     }
@@ -79,5 +97,6 @@ const getDBProjects = async (options = {
 module.exports = {
     getWfProjects,
     setWfProjects,
-    getDBProjects
+    getDBProjects,
+    getDBProjectById
 };

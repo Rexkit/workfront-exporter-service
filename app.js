@@ -5,9 +5,11 @@ const passport = require('passport');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db/models');
 require('dotenv').config();
+const cron = require('cron').CronJob;
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const dataUpdateCron =  require('./crons/dataUpdate');
 
 const app = express();
 
@@ -44,5 +46,7 @@ app.use(cookieParser());
 app.use('/api', apiRouter);
 
 require('./config/passport/passport.js')(passport, db.SystemUser);
+
+dataUpdateCron.start();
 
 module.exports = app;

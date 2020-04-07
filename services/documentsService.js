@@ -48,6 +48,9 @@ const setWfDocuments = async documentsArr => {
             for(const document of documentsArr) {
                 await Document.create(document).catch(err => console.log(err));
             }
+            console.log('Successfully set documents to DB');
+        } else {
+            console.log('No documents were specified for set operation');
         }
     } catch (e) {
         throw new Error(e.message);

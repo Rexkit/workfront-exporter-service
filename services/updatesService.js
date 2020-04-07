@@ -52,6 +52,9 @@ const setWfUpdates = async updatesArr => {
             for(const update of updatesArr) {
                 await Update.create(update).catch(err => console.log(err));
             }
+            console.log('Successfully set updates to DB');
+        } else {
+            console.log('No updates were specified for set operation');
         }
     } catch (e) {
         throw new Error(e.message);

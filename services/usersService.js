@@ -52,6 +52,9 @@ const setWfUsers = async usersArr => {
         for(const user of usersArr) {
             await User.create(user).catch(err => console.log(err));
         }
+        console.log('Successfully set user to DB');
+    } else {
+        console.log('No users were specified for set operation');
     }
 };
 

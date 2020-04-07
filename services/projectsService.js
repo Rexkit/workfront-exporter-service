@@ -51,6 +51,9 @@ const setWfProjects = async projectsArr => {
           for(const project of projectsArr) {
               await Project.create(project).catch(err => console.log(err));
           }
+          console.log('Successfully set projects to DB');
+      } else {
+          console.log('No projects were specified for set operation');
       }
   } catch (e) {
       throw new Error(e.message);

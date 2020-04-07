@@ -5,9 +5,8 @@ const dropAll = require('../utils/dropAll');
 module.exports = new Cron('0 0 0 * * *', async () => {
     try {
         console.log('Executing DataUpdate cronJob');
-        dropAll();
+        await dropAll();
         await wfLogin();
-        console.log('Successfully logged into Workfront');
         let [users, projects] = await Promise.all([
             getWfUsers(),
             getWfProjects()
@@ -19,14 +18,10 @@ module.exports = new Cron('0 0 0 * * *', async () => {
         ]);
         console.log('Successfully got Workfront updates and documents');
         await setWfUsers(users);
-        console.log('Successfully set user to DB');
         await setWfProjects(projects);
-        console.log('Successfully set projects to DB');
         await setWfDocuments(documents);
-        console.log('Successfully set documents to DB');
         await setWfUpdates(updates);
-        console.log('Successfully set updates to DB');
     } catch (e) {
-
+        throw new Error(e.message);
     }
 }, null, true, 'America/Los_Angeles');

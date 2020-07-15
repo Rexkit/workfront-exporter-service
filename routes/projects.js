@@ -8,3 +8,5 @@ router.get('/', isLoggedIn, getAllProjects);
 router.get('/:id', isLoggedIn, getProjectById);
 
 module.exports = router;
+
+

@@ -10,21 +10,18 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dataUpdateCron =  require('./crons/dataUpdate');
-
 const app = express();
-
 const apiRouter = require('./routes')(passport);
 
 app.use(cors({
-    credentials: true
+    credentials: true,
+    origin: 'http://localhost:3000'
 }));
-
 app.use(function(err, req, res, next) {
     console.error(err.message);
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
-
 app.use(session({
     store: new SequelizeStore({
         db: db.sequelize
@@ -33,15 +30,14 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-
 app.use(passport.initialize());
-
 app.use(passport.session());
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser())
+
+app.disable('etag');
 
 app.use('/api', apiRouter);
 

@@ -20,14 +20,11 @@ module.exports = (passport, user) => {
     });
 
     passport.use('local-signup', new LocalStrategy({
-            usernameField: 'email',
-            passwordField: 'password',
-            passReqToCallback: true
+        usernameField: 'email', passwordField: 'password', passReqToCallback: true
     }, (req, email, password, done) => {
         const generateHash = password => {
             return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
         };
-
         User.findOne({
             where: {
                 email: email
@@ -63,11 +60,9 @@ module.exports = (passport, user) => {
             passReqToCallback: true
         }, (req, email, password, done) => {
             const User = user;
-
             const isValidPassword = function(userpass, password) {
                 return bcrypt.compareSync(password, userpass);
             };
-
             User.findOne({
                 where: {
                     email: email
@@ -78,18 +73,15 @@ module.exports = (passport, user) => {
                         message: 'Email does not exist'
                     });
                 }
-
                 if (!isValidPassword(user.password, password)) {
                     return done(null, false, {
-                        message: 'Incorrect password.'
+                        message: 'Incorrect key.'
                     });
                 }
-
                 const userinfo = user.get();
                 return done(null, userinfo);
             }).catch(function(err) {
                 console.log("Error:", err);
-
                 return done(null, false, {
                     message: 'Something went wrong with your Signin'
                 });

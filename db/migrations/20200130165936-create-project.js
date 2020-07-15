@@ -17,6 +17,9 @@ module.exports = {
       actualStartDate: {
         type: Sequelize.DATE
       },
+      plannedCompletionDate: {
+        type: Sequelize.DATE
+      },
       description: {
         type: Sequelize.STRING(4000)
       },

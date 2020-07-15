@@ -28,7 +28,7 @@ module.exports = passport => {
             }
             req.logIn(user, function(err) {
                 if (err) { return next(err); }
-                return res.status(200).json(user);
+                return res.status(200).json(user.password);
             });
         })(req, res, next)
     });

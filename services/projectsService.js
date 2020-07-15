@@ -23,6 +23,7 @@ const getWfProjects = async () => {
                     "description:*",
                     "lastUpdateDate:*",
                     "percentComplete:*",
+                    "plannedCompletionDate:*",
                     "ownerID:*"]
             );
             projects.push(...projectsCut);
@@ -35,6 +36,7 @@ const getWfProjects = async () => {
                 actualCompletionDate: replaceDate(project.actualCompletionDate),
                 actualStartDate: replaceDate(project.actualStartDate),
                 description: project.description,
+                plannedCompletionDate: replaceDate(project.plannedCompletionDate),
                 percentComplete: project.percentComplete,
                 ownerId: project.ownerID,
                 lastUpdateDate: replaceDate(project.lastUpdateDate)
@@ -61,28 +63,13 @@ const setWfProjects = async projectsArr => {
 };
 
 const getDBProjects = async (options = {
-    attributes: [
-        'id',
-        'name',
-        'actualCompletionDate',
-        'actualStartDate',
-        'description',
-        'percentComplete',
-        'ownerId',
-        'lastUpdateDate'
-    ]
+    attributes: ['id', 'name', 'actualCompletionDate', 'actualStartDate', 'plannedCompletionDate',
+        'description', 'percentComplete', 'ownerId', 'lastUpdateDate' ]
 }) => {
     try {
         return await Project.findAll(options = {
-            attributes: [
-                'id',
-                'name',
-                'actualCompletionDate',
-                'actualStartDate',
-                'description',
-                'percentComplete',
-                'ownerId',
-                'lastUpdateDate'
+            attributes: ['id', 'name', 'actualCompletionDate', 'actualStartDate', 'plannedCompletionDate',
+                'description', 'percentComplete', 'ownerId', 'lastUpdateDate'
             ]});
     } catch (e) {
         throw new Error(e.message);

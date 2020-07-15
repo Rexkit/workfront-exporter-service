@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     actualStartDate: {
       type: DataTypes.DATE
     },
+    plannedCompletionDate: {
+      type: DataTypes.DATE
+    },
     description: {
       type: DataTypes.STRING(4000)
     },
@@ -31,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Project.associate = function(models) {
-    // associations can be defined here
     Project.belongsTo(models.User, {
       foreignKey: 'ownerId'
     });
